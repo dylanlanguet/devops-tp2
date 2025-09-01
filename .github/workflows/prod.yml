@@ -23,4 +23,4 @@ jobs:
         
         
       - name: Push Docker image
-        run: docker push alexbegue/mon-site-nginx:latest
+        run: docker push dlanguet/devops-tp3:latest
