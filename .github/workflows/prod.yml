@@ -16,6 +16,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: dlanguet/{{ github.repository }}:latest
+          tags: dlanguet/devops-tp3:latest
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
