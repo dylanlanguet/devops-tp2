@@ -5,7 +5,7 @@ on:
       - prod
 
 jobs:
-  say-hello:
+  say-hello-prod:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout du code
