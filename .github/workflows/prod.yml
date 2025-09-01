@@ -24,3 +24,25 @@ jobs:
         
       - name: Push Docker image
         run: docker push dlanguet/devops-tp3:latest
+
+  deploy-to-vps:
+    needs: push-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to VPS
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_PORT: ${{ secrets.VPS_PORT || '22' }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -p $VPS_PORT $VPS_USER@$VPS_HOST '
+            docker stop devops-app || true
+            docker rm devops-app || true
+            docker pull dlanguet/devops-tp3:latest
+            docker run -d --name devops-app -p 80:80 dlanguet/devops-tp3:latest
+          '
