@@ -1,0 +1,15 @@
+name: prod.yml
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Echo Hello Prod
+        run: echo "Hello Prod"
